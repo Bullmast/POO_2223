@@ -51,7 +51,8 @@ public class Main {
                 break;
 
             case 7:
-
+                System.out.println(" --- Tempo Gasto no Calculo do Factorial de 5000 --- \n\n   - Argumentos ( ) : \n");
+                System.out.println( teste.tempoGasto() );
                 break;
 
         }
