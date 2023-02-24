@@ -1,3 +1,5 @@
+package Ficha1;
+
 import java.lang.Math;
 import java.time.LocalDateTime;
 
@@ -49,9 +51,11 @@ public class Ficha1 {
     public long tempoGasto() {
 
         LocalDateTime current = LocalDateTime.now();
+        //System.out.println(current.toString());
         long calculo = factorial(5000);
         LocalDateTime after = LocalDateTime.now();
-        return after.compareTo(current);
+        //System.out.println(after.toString());
+        return after.getNano() - current.getNano();
 
     }
 
