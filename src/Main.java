@@ -143,7 +143,20 @@ public class Main {
                 System.out.println(teste.dataMaisProxima(LocalDate.parse("2023-03-17")));
                 System.out.println(teste.toString());
                 break;
+
+            case 5:
+                System.out.println("Still Not Answered\n");
+                break;
+
+            case 6:
+                System.out.println(" --- Operações Sobre Array de Strings --- \n\n");
+                String[] stringTest = {"abc","ald","ald\n","abc","quim 123","deg","def","abc","quim","ald\n"};
+                teste.setArrString(stringTest);
+                System.out.println(Arrays.toString(teste.stringSemRep()));
+                System.out.println("   Maior String : "+teste.maiorString());
+                
         }
+
     }
 
     public static void main(String[] args) {
