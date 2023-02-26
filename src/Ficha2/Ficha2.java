@@ -8,6 +8,7 @@ public class Ficha2 {
     private int[] arrInt;
     private int[] arrInt2;
     private String[] arrString;
+    private int[][] notaAluno;
 
     // Construtores da Classe Ficha 2
     public Ficha2 () {
@@ -15,6 +16,7 @@ public class Ficha2 {
         this.arrInt = new int[0];
         this.arrInt2 = new int[0];
         this.arrString = new String[0];
+        this.notaAluno = new int[5][5];
     }
 
 
@@ -29,6 +31,14 @@ public class Ficha2 {
 
     public void setArrString(String[] tmp) {
         this.arrString = Arrays.copyOf(tmp, tmp.length);
+    }
+
+    public void setNotaAluno(int[][] giv) {
+        int[][] tmp = new int[5][5];
+        for (int i = 0; i < 5; i++) {
+            tmp[i] = Arrays.copyOf(giv[i],5);
+        }
+        this.notaAluno = tmp;
     }
 
     // ****** Inicio dos Exercicios ******
@@ -157,6 +167,57 @@ public class Ficha2 {
         }
 
         return res;
+    }
+
+    public String[] stringQueRep () {
+
+        int[] cnt = new int[this.arrString.length-1];
+        int[] cntR = new int[this.arrString.length-1];
+        int cntrT = 0;
+        Arrays.fill(cnt, Integer.MAX_VALUE);
+        Arrays.fill(cntR, Integer.MAX_VALUE);
+        int cntT = 0;
+        int pick;
+
+        for (int i = 0; i < this.arrString.length-1 ; i++) {
+            Arrays.sort(cnt);
+            Arrays.sort(cntR);
+            pick = 0;
+            int tmp = Arrays.binarySearch( cnt, i);
+            if ( tmp < 0 ) {
+                for (int j = i+1; j < this.arrString.length ; j++) {
+                    if (( this.arrString[i].compareTo(this.arrString[j]) == 0 ) && ( Arrays.binarySearch( cnt, j) < 0 ) ) {
+                        if (pick == 0) {
+                            pick = 1;
+                            cntR[cntrT] = i;
+                            cntrT++;
+                        }
+                        cnt[cntT] = j;
+                        cntT++;
+                    }
+                }
+            }
+        }
+
+        int resCnt = 0;
+        String[] result = new String[cntrT];
+        for(;resCnt != cntrT; resCnt++) {
+            result[resCnt] = this.arrString[cntR[resCnt]];
+        }
+
+        return result;
+    }
+
+    public int qtRepString ( String teste ) {
+
+        int cnt = 0;
+        for ( String elem : this.arrString ) {
+            if (elem.compareTo(teste) == 0){
+                cnt++;
+            }
+        }
+
+        return cnt;
     }
 
 }

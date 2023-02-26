@@ -150,10 +150,12 @@ public class Main {
 
             case 6:
                 System.out.println(" --- Operações Sobre Array de Strings --- \n\n");
-                String[] stringTest = {"abc","ald","ald\n","abc","quim 123","deg","def","abc","quim","ald\n"};
+                String[] stringTest = {"abc","ald","ald\n","abc","def","quim 123","deg","def","abc","quim 123","ald\n"};
                 teste.setArrString(stringTest);
                 System.out.println(Arrays.toString(teste.stringSemRep()));
                 System.out.println("   Maior String : "+teste.maiorString());
+                System.out.println(Arrays.toString(teste.stringQueRep()));
+                System.out.println("   A String 'abc' aparece "+teste.qtRepString("abc")+" vezes.");
                 
         }
 
