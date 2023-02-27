@@ -63,11 +63,10 @@ public class Main {
         }
     }
 
-    public static void ficha2(String[] args) {
+    public static void ex1ficha2(String[] args, Ficha2 teste) {
 
-        Ficha2 teste = new Ficha2();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Ficha 2:\n    Qual é o exercício:\n");
+        System.out.println("   - Qual é a alínea que queres ver ? :\n");
 
         switch (sc.nextInt()) {
 
@@ -107,7 +106,7 @@ public class Main {
                 int tmp1 = sc.nextInt();
                 int tmp2 = sc.nextInt();
 
-                System.out.println( Arrays.toString(teste.arrEntreIndice( tmp1, tmp2) ) );
+                System.out.println(Arrays.toString(teste.arrEntreIndice(tmp1, tmp2)));
                 break;
 
             case 3:
@@ -133,10 +132,24 @@ public class Main {
 
                 teste.setArrInt(arrtest);
                 teste.setArrInt2(arrtest1);
-                System.out.println( Arrays.toString(teste.comumEntreArr()));
+                System.out.println(Arrays.toString(teste.comumEntreArr()));
+                break;
+        }
+    }
+
+    public static void ficha2(String[] args) {
+
+        Ficha2 teste = new Ficha2();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ficha 2:\n    Qual é o exercício:\n");
+
+        switch (sc.nextInt()) {
+
+            case 1:
+                ex1ficha2(args, teste);
                 break;
 
-            case 4:
+            case 2:
                 System.out.println(" --- Operações Entre Datas --- \n\n");
                 teste.insereData(LocalDate.parse("2023-12-24"));
                 teste.insereData(LocalDate.parse("2022-12-20"));
@@ -144,11 +157,11 @@ public class Main {
                 System.out.println(teste.toString());
                 break;
 
-            case 5:
+            case 3:
                 System.out.println("Still Not Answered\n");
                 break;
 
-            case 6:
+            case 4:
                 System.out.println(" --- Operações Sobre Array de Strings --- \n\n");
                 String[] stringTest = {"abc","ald","ald\n","abc","def","quim 123","deg","def","abc","quim 123","ald\n"};
                 teste.setArrString(stringTest);
@@ -156,7 +169,55 @@ public class Main {
                 System.out.println("   Maior String : "+teste.maiorString());
                 System.out.println(Arrays.toString(teste.stringQueRep()));
                 System.out.println("   A String 'abc' aparece "+teste.qtRepString("abc")+" vezes.");
-                
+                break;
+
+            case 5:
+                System.out.printf(" --- Operações Sobre Notas de Alunos --- \n\n");
+                int[][] tmp = {{10,20,12,13,11},{10,12,14,12,15},{10,11,12,13,13},{10,11,11,15,13},{10,11,11,18,13}};
+                /*
+                int[][] tmp = new int[5][5];
+                for(int i = 1; i <= 5; i++) {
+                    System.out.printf("   Quais são as 5 notas do Aluno "+i+"?\n");
+                    for(int j = 0; j < 5; j++) {
+                        tmp[i][j] = sc.nextInt();
+                    }
+                }
+                */
+                teste.setNotaAluno(tmp);
+                System.out.printf(teste.pautaToString());
+                for(int i = 0; i < 5; i++) {
+                    System.out.printf("A soma das notas da Cadeira "+i+" dá "+teste.notasCadeira(i)+" .\n");
+                    System.out.printf("A media das notas da Cadeira "+i+" é "+teste.mediaCadeira(i)+" .\n");
+                }
+                for(int j = 0; j < 5; j++) {
+                    System.out.printf("A media do Aluno "+j+" dá "+teste.mediaAluno(j)+" .\n");
+                }
+                System.out.printf("A Nota Mais Alta na Pauta é "+teste.notaMaisAlta()+" .\n");
+                System.out.printf("A Nota Mais Baixa na Pauta é "+teste.notaMaisBaixa()+" .\n");
+                System.out.printf("As Notas que ultrapassaram o 11 foram "+Arrays.toString(teste.notasAcima(11))+" .\n");
+                System.out.printf("A Cadeira com a Melhor Media é a Cadeira "+teste.cadeiraMaisAlta());
+                break;
+
+            case 6:
+                System.out.printf(" --- Operações Sobre Matrizes --- \n\n");
+                int[][] cur = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
+                int[][] cur1 = {{0,0,0,1},{0,0,1,0},{0,1,0,0},{1,0,0,0}};
+                System.out.printf("   - Primeira Matriz : \n");
+                System.out.printf(teste.matrizToString(cur)+"\n");
+                System.out.printf("   - Segunda Matriz : \n");
+                System.out.printf(teste.matrizToString(cur1)+"\n");
+                System.out.printf("   - Soma das 2 Matrizes : \n");
+                System.out.printf(teste.matrizToString(teste.somaMatriz(cur,cur1))+"\n");
+                System.out.printf("   - ( Matriz 1 + Matriz 2 ) - Matriz 2 = Matriz 1 ? "+ teste.equalsMatriz(teste.somaMatriz(teste.somaMatriz(cur,cur1),teste.matrizOposta(cur1)),cur));
+                break;
+
+            case 7:
+                int[] guess = {10,23,45,29,26,3,9};
+
+                // Se quiserem verificar o que acontece quando ganhas o EuroMilhões, é só preciso retirar as barras da linha abaixo.
+                //teste.setKey(guess);
+                System.out.printf(teste.adivinhaEuro(guess));
+                break;
         }
 
     }

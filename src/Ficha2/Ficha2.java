@@ -9,6 +9,7 @@ public class Ficha2 {
     private int[] arrInt2;
     private String[] arrString;
     private int[][] notaAluno;
+    private int[] key;
 
     // Construtores da Classe Ficha 2
     public Ficha2 () {
@@ -17,6 +18,12 @@ public class Ficha2 {
         this.arrInt2 = new int[0];
         this.arrString = new String[0];
         this.notaAluno = new int[5][5];
+        this.key = new int[7];
+        int tmp = 50;
+        for(int i = 0; i < 7; i++) {
+            if (i == 5) { tmp = 9; }
+            key[i] = (int) (Math.random() * tmp) + 1;
+        }
     }
 
 
@@ -40,6 +47,14 @@ public class Ficha2 {
         }
         this.notaAluno = tmp;
     }
+
+    public void setKey(int[] tries) {
+        for(int i = 0; i < 7; i++) {
+            this.key[i] = tries[i];
+        }
+    }
+
+
 
     // ****** Inicio dos Exercicios ******
 
@@ -80,6 +95,10 @@ public class Ficha2 {
         return tmp;
     }
 */
+
+
+
+    // ******** .2. Exercicios Sobre Acessos ao Array de Datas .2. ********
 
     public void insereData ( LocalDate data) {
 
@@ -123,6 +142,10 @@ public class Ficha2 {
 
         return tmp;
     }
+
+
+
+    // ******** .4. Exercicios Sobre Operações com Strings .4. ********
 
     public String[] stringSemRep () {
 
@@ -218,6 +241,193 @@ public class Ficha2 {
         }
 
         return cnt;
+    }
+
+
+
+    // ******** .5. Exercicios Sobre as Notas dos Alunos .5. ********
+
+    public int notasCadeira (int ind) {
+
+        int med = 0;
+        for (int[] aluno : this.notaAluno) {
+            med += aluno[ind];
+        }
+        return med;
+
+    }
+
+    public double mediaAluno (int ind) {
+
+        int med = 0;
+        for (int nota : this.notaAluno[ind]) {
+            med += nota;
+        }
+
+        return med/5;
+    }
+
+    public double mediaCadeira (int ind) {
+
+        int med = 0;
+        for (int[] aluno : this.notaAluno) {
+            med += aluno[ind];
+        }
+        return med/5;
+
+    }
+
+    public int notaMaisAlta() {
+        int notaMaisAlta = 0;
+        for(int i=0; i<5; i++) {
+            for(int j=0; j<5; j++) {
+                if(this.notaAluno[i][j] > notaMaisAlta) {
+                    notaMaisAlta = this.notaAluno[i][j];
+                }
+            }
+        }
+        return notaMaisAlta;
+    }
+
+    public int notaMaisBaixa() {
+        int notaMaisBaixa = Integer.MAX_VALUE;
+        for(int i=0; i<5; i++) {
+            for(int j=0; j<5; j++) {
+                if(this.notaAluno[i][j] < notaMaisBaixa ) {
+                    notaMaisBaixa = this.notaAluno[i][j];
+                }
+            }
+        }
+        return notaMaisBaixa;
+    }
+
+    public int[] notasAcima(int lim) {
+        int[] res = new int[25];
+        int cnt = 0;
+        for(int i=0; i<5; i++) {
+            for(int j=0; j<5; j++) {
+                if(this.notaAluno[i][j] > lim ) {
+                    res[cnt] = this.notaAluno[i][j];
+                    cnt++;
+                }
+            }
+        }
+        res = Arrays.copyOf(res, cnt);
+
+        return res;
+    }
+
+    public String pautaToString () {
+        String res = " * * * * * Pauta * * * * * ";
+        for (int i = 0; i < 5; i++) {
+            res = res + "\n  Aluno " + i + " :";
+            for (int j = 0; j < 5; j++) {
+                res += " " + this.notaAluno[i][j];
+            }
+        }
+        res += "\n * * * * *       * * * * * \n\n";
+
+        return res;
+    }
+
+    public int cadeiraMaisAlta () {
+        double res = 0;
+        int ind = 0;
+        for (int i = 0; i < 5; i++) {
+            double tmp = this.mediaCadeira(i);
+            if (res < tmp) {
+                res = tmp;
+                ind = i;
+            }
+        }
+        return ind;
+    }
+
+    // ******** .6. Exercicios Sobre Matrizes .6. ********
+
+    public String matrizToString (int[][] matriz) {
+        return Arrays.deepToString(matriz);
+    }
+
+    public int[][] somaMatriz (int[][] matriz1, int[][] matriz2) {
+        int[][] tmp = new int[matriz1.length][matriz2.length];
+
+        for (int i = 0; i < matriz1.length; i++) {
+            for (int j = 0; j < matriz2.length; j++) {
+                tmp[i][j] = matriz1[i][j] + matriz2[i][j];
+            }
+        }
+        return tmp;
+    }
+
+    public boolean equalsMatriz (int[][] matriz1, int[][] matriz2) {
+        return Arrays.deepEquals(matriz1,matriz2);
+    }
+
+    public int[][] matrizOposta (int[][] matriz) {
+        int[][] tmp = new int[matriz.length][matriz[0].length];
+
+        for(int i = 0; i < matriz.length; i++) {
+            for(int j = 0; j < matriz[0].length; j++) {
+                tmp[i][j] = -matriz[i][j];
+            }
+        }
+
+        return tmp;
+    }
+
+
+
+    // ******** .7. EuroMilhões .7. ********
+    public String adivinhaEuro (int[] guess) {
+        String res = " - * - * - * - EuroMilhoes - * - * - * - \n\n  _ . _ Chave Vencedora : ";
+        int cnt = 0;
+        int cntE = 0;
+
+        for(int i = 0; i < 7; i++) {
+            res += this.key[i] + " | ";
+        }
+        res += "\n                         -*_*-*_*-*_*-*_*-*_*-*_*-*_*-*_*-*_*-\n  _ . _ Chave Dada      : ";
+        for(int j = 0; j < 7; j++) {
+            if (guess[j] == this.key[j]) {
+                res += "€ | ";
+                if (j < 5) { cnt++; } else { cntE++; }
+            } else {
+                res += "X | ";
+            }
+        }
+
+        // *** Verificar se Ganhaste Prémio ***
+        if ((cnt == 5) && (cntE == 2)) {
+            res += "\n" +
+                    "\n" +
+                    "              -.-.-.-.-.-.-.-.-.-*-.-.-.-.-.-.-.--.-.\n" +
+                    "              -.-.-.-.-.-.-.-.*******.-.-.-.-.-.--.-.\n" +
+                    "              -.-.-.-.-.-.-*************-.-.-.-.--.-.\n" +
+                    "              -.-.-.-*****    PARABÉNS   *****-.--.-.\n" +
+                    "              -.-.***** O EUROMILHÕES É TEU *****.-.-\n" +
+                    "              -.-.-.-*************************-.--.-.\n" +
+                    "              -.-.-.-.-.-.-*************-.-.-.-.--.-.\n" +
+                    "              -.-.-.-.-.-.-.-.*******.-.-.-.-.-.--.-.\n" +
+                    "              -.-.-.-.-.-.-.-.-.-*-.-.-.-.-.-.-.--.-.\n" +
+                    "\n";
+            for(int k = 0; k < 50; k++) {
+                for (int y = k; y != 0; y--) {
+                    res += "  ";
+                }
+                res += Arrays.toString(this.key)+"\n";
+            }
+        } else {
+            res += "\n" + "\n" + "-.-.-.-.-.-.-.-.-.-*-.-.-.-.-.-.-.--.-.\n" +
+                    "\n" + "\n" + "     ::: Números Certos : " + cnt + "\n     ::: Estrelas Certas : " + cntE +
+                    "\n" + "\n" +
+                    "\n" +
+                    "-.-.-.-.-.-.-.-.-.-*-.-.-.-.-.-.-.--.-.\n" +"\n" + "\n" +
+                    "    ***   BEST LUCK NEXT TIME    ***   \n" +"\n" + "\n" +
+                    "-.-.-.-.-.-.-.-.-.-*-.-.-.-.-.-.-.--.-.\n" ;
+        }
+
+        return res;
     }
 
 }
