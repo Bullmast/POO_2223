@@ -33,5 +33,9 @@ Ficha 1:
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
-Please make sure to update tests as appropriate.
+Recommendations are always welcome and keep in mind that this is a learning project.
+
+## Purpose and Rights
+
+This project is my resolution of the practice files given to me, from my Objects Oriented Programming Class, within the scope of the Computer Science degree I'm taken in University of Minho, Portugal.
 
