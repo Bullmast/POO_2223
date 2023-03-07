@@ -152,6 +152,7 @@ public class Telemóvel {
         this.nomeApps = Arrays.copyOf(nomeApps,nomeApps.length);
     }
 
+
     public boolean equals ( Object o ) {
         if ( this == o )
             return true ;
@@ -159,13 +160,25 @@ public class Telemóvel {
             return false ;
         Telemóvel p = ( Telemóvel ) o ;
         return ( this.marca == p.getMarca() && this.modelo == p.getModelo()
-                && this.display == p.getDisplay() ) ;
+                && this.espaçoMsgs == p.getEspaçoMsgs() && this.espaçoFotos == p.getEspaçoFotos()
+                && this.espaçoApps == p.getEspaçoApps() && this.espaçoFotoApp == p.getEspaçoFotoApp()
+                && this.espaçoTotal == p.getEspaçoTotal() && this.numApps == p.getNumApps()
+                && this.numFotos == p.getNumFotos() && Arrays.equals(this.display,p.getDisplay())
+                && Arrays.deepEquals(this.nomeApps,p.getNomeApps())
+        );
     }
 
     public String toString() {
-        return "Circulo :\n  Centro : X="+this.x+"; Y="+this.y+";\n  Raio : "+this.raio;
+        return "Telemóvel :\n   + Marca : "+this.getMarca()+"\n   + Modelo : "+this.getModelo()+"\n   + Display : "
+                +Arrays.toString(this.getDisplay())+"\n   + Espaço para Msgs : "+this.getEspaçoMsgs()+"\n   + Espaço para Fotos : "
+                +this.getEspaçoFotos()+"\n   + Espaço para Apps : "+this.getEspaçoApps()
+                +"\n   + Espaço para Fotos e Apps : "+this.getEspaçoFotoApp()+"\n   + Espaço Total : "+this.getEspaçoTotal()+
+                "\n   + Número de Fotos : "+this.getNumFotos()+"\n   + Número de Apps Instaladas : "+this.getNumApps()+
+                "\n   + Nome das Apps Instaladas : "+Arrays.toString(this.getNomeApps());
     }
 
     public Telemóvel clone() {
         return new Telemóvel(this);
+    }
+
 }
