@@ -2,12 +2,13 @@ package Ficha3;
 import java.time.Period;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 public class Video {
 
     private String nome;
-    private int[] conteúdo;
+    private byte[] conteúdo;
     private LocalDateTime dataCarrega;
     private int[] resolução;
     private Period duração;
@@ -18,7 +19,7 @@ public class Video {
     public Video() {
 
         this.nome = "";
-        this.conteúdo = new int[] {0};
+        this.conteúdo = new byte[] {0};
         this.dataCarrega = LocalDateTime.now();
         this.resolução = new int[] {0,0};
         this.duração = Period.ZERO;
@@ -28,11 +29,24 @@ public class Video {
 
     }
 
+    public Video( Video teste ) {
+
+        this.nome = teste.getNome();
+        this.conteúdo = teste.getConteúdo();
+        this.dataCarrega = teste.getDataCarrega();
+        this.resolução = teste.getResolução();
+        this.duração = teste.getDuração();
+        this.comments = teste.getComments();
+        this.likes = teste.getLikes();
+        this.dislikes = teste.getDislikes();
+
+    }
+
     public String getNome() {
         return nome;
     }
 
-    public int[] getConteúdo() {
+    public byte[] getConteúdo() {
         return Arrays.copyOf(conteúdo,conteúdo.length);
     }
 
@@ -64,7 +78,7 @@ public class Video {
         this.nome = nome;
     }
 
-    public void setConteúdo(int[] conteúdo) {
+    public void setConteúdo(byte[] conteúdo) {
         this.conteúdo = Arrays.copyOf(conteúdo,conteúdo.length);
     }
 
@@ -92,6 +106,24 @@ public class Video {
         this.likes = likes;
     }
 
+    public void insereComentario ( String comentario ) {
+        String[] tmp = Arrays.copyOf(this.comments,this.comments.length+1);
+        tmp[this.comments.length] = comentario;
+        this.comments = tmp;
+    }
+
+    public long qtsDiasDepois () {
+        return this.dataCarrega.until(LocalDateTime.now(), ChronoUnit.DAYS);
+    }
+
+    public void thumbsUp () {
+        this.setLikes(this.likes+1);
+    }
+
+    public String processa() {
+        return Arrays.toString(this.conteúdo);
+    }
+
     public boolean equals ( Object o ) {
         if ( this == o )
             return true ;
@@ -104,5 +136,21 @@ public class Video {
                 && Arrays.equals(this.resolução,p.getResolução())
                 && Arrays.equals(this.comments,p.getComments())
         );
+    }
+
+    public String toString() {
+        StringBuilder sc = new StringBuilder();
+        sc.append(" - Video :\n"); sc.append("   + Nome: "+this.nome); sc.append("\n");
+        sc.append("   + Conteúdo: "+Arrays.toString(this.conteúdo)); sc.append("\n");
+        sc.append("   + Data de Carregamento: "+this.dataCarrega.toString()); sc.append("\n");
+        sc.append("   + Duração: "+this.duração); sc.append("\n");
+        sc.append("   + Likes: "+this.likes+"  + Dislikes: "+this.dislikes); sc.append("\n");
+        sc.append("   + Resolução: "+Arrays.toString(this.resolução)); sc.append("\n");
+        sc.append("   + Comentários: "+Arrays.toString(this.comments)); sc.append("\n");
+        return sc.toString();
+    }
+
+    public Video clone() {
+        return new Video(this);
     }
 }
